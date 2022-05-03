@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ac.LifeFragment">
+
+    <Button
+        android:id="@+id/sleepBtn"
+        android:layout_width="99dp"
+        android:layout_height="63dp"
+        android:text="Sleep"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/omwBtn"
+        app:layout_constraintTop_toBottomOf="@+id/eatBtn" />
+
+    <Button
+        android:id="@+id/omwBtn"
+        android:layout_width="99dp"
+        android:layout_height="63dp"
+        android:text="omw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sleepBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/getrdyBtn"
+        app:layout_constraintTop_toBottomOf="@+id/bathBtn" />
+
+    <Button
+        android:id="@+id/getrdyBtn"
+        android:layout_width="99dp"
+        android:layout_height="63dp"
+        android:text="Get Rdy"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/omwBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/workBtn" />
+
+    <Button
+        android:id="@+id/eatBtn"
+        android:layout_width="99dp"
+        android:layout_height="63dp"
+        android:text="Eat"
+        app:layout_constraintBottom_toTopOf="@+id/sleepBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bathBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bathBtn"
+        android:layout_width="99dp"
+        android:layout_height="63dp"
+        android:text="Bath"
+        app:layout_constraintBottom_toTopOf="@+id/omwBtn"
+        app:layout_constraintEnd_toStartOf="@+id/eatBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/workBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/workBtn"
+        android:layout_width="99dp"
+        android:layout_height="63dp"
+        android:text="Work"
+        app:layout_constraintBottom_toTopOf="@+id/getrdyBtn"
+        app:layout_constraintEnd_toStartOf="@+id/bathBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

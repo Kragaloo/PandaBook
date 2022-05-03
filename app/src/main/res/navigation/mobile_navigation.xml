@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.pandabook.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/nav_diary"
+        android:name="com.example.pandabook.ui.diary.DiaryFragment"
+        android:label="Diary"
+        tools:layout="@layout/diary_fragment" />
+
+    <fragment
+        android:id="@+id/nav_fitness"
+        android:name="com.example.pandabook.ui.fitness.FitnessFragment"
+        android:label="Fitness"
+        tools:layout="@layout/fitness_fragment" />
+
+    <fragment
+        android:id="@+id/nav_progress"
+        android:name="com.example.pandabook.ui.progress.ProgressFragment"
+        android:label="Progress"
+        tools:layout="@layout/progress_fragment" />
+</navigation>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ac.LeisureFragment">
+
+    <Button
+        android:id="@+id/codeBtn"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:text="Code"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/videogamesBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chillBtn" />
+
+    <Button
+        android:id="@+id/chillBtn"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:text="Chill"
+        app:layout_constraintBottom_toTopOf="@+id/codeBtn"
+        app:layout_constraintEnd_toStartOf="@+id/studyBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/studyBtn"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:text="Study"
+        app:layout_constraintBottom_toTopOf="@+id/videogamesBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/chillBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/videogamesBtn"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
+        android:text="Video Games"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/codeBtn"
+        app:layout_constraintTop_toBottomOf="@+id/studyBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
