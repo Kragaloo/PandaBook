@@ -1,6 +1,7 @@
 package com.example.pandabook;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -12,7 +13,6 @@ public class ActivityMap {
 
     public ActivityMap() {
         activityMap = new HashMap<LocalDate, Activity>();
-
     }
 
     public HashMap<LocalDate, Activity> getActivityMap() {
@@ -35,4 +35,19 @@ public class ActivityMap {
     }
 
 
+    public ArrayList<String> getCurrentListView() {
+        ArrayList<String> result = new ArrayList<String>();
+        LocalDate today = LocalDate.now();
+        Activity todayEntry = activityMap.get(today);
+        if (todayEntry!= null){
+            ArrayList<ActivityInstance> instanceList = todayEntry.getActivityInstanceList();
+            for(ActivityInstance x:instanceList){
+                result.add(0, x.toString1());
+
+            }
+
+        }
+        return result;
+
+    }
 }

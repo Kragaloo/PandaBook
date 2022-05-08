@@ -3,6 +3,7 @@ package com.example.pandabook;
 import static java.time.LocalDate.now;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -23,12 +24,16 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.example.pandabook.databinding.ActivityMainBinding;
 
@@ -36,19 +41,18 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private Button healthBtn, lifeBtn, leisureBtn, startBtn, stopBtn, pauseBtn;
+    private Button healthBtn, lifeBtn, leisureBtn;
     private ActivityMap activityData;
     private LifeFragment lifeFragment;
     private HealthFragment healthFragment;
     private LeisureFragment leisureFragment;
     private PandaFragment currentFragment;
-
-
-
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activityData = new ActivityMap();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -56,17 +60,15 @@ public class MainActivity extends AppCompatActivity {
         lifeBtn = (Button) findViewById(R.id.lifeBtn);
         leisureBtn = (Button) findViewById(R.id.leisureBtn);
 
-        startBtn = (Button) findViewById(R.id.startBtn);
-        stopBtn = (Button) findViewById(R.id.stopBtn);
-        pauseBtn = (Button) findViewById(R.id.pauseBtn);
+        lifeFragment = new LifeFragment(activityData, this);
+        healthFragment = new HealthFragment(activityData, this  );
+        leisureFragment = new LeisureFragment(activityData, this);
 
-        //stopBtn.setEnabled(false);
-        //startBtn.setEnabled(false);
+        updateListView();
 
         lifeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lifeFragment = new LifeFragment();
                 replaceFragment(lifeFragment);
                 currentFragment = lifeFragment;
             }
@@ -75,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         healthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                healthFragment = new HealthFragment();
                 replaceFragment(healthFragment);
                 currentFragment = healthFragment;
             }
@@ -84,67 +85,8 @@ public class MainActivity extends AppCompatActivity {
         leisureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                leisureFragment = new LeisureFragment();
                 replaceFragment(leisureFragment);
                 currentFragment = leisureFragment;
-            }
-        });
-
-
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LocalDate today = LocalDate.now();
-                Activity todayEntry = activityData.getActivityMap().get(today);
-                if (todayEntry== null){
-                    todayEntry = new Activity();
-                    activityData.getActivityMap().put(today, todayEntry);
-                }
-                ArrayList<ActivityInstance> list = todayEntry.getActivityInstanceList();
-                if (list == null) {
-                    list = new ArrayList<ActivityInstance>();
-                    todayEntry.setActivityInstanceList(list);
-
-                }
-                ActivityInstance instance = new ActivityInstance();
-                instance.setActivityCategory(currentFragment.getCategory());
-                instance.setActivityName(currentFragment.getActivityName());
-                instance.setStartTime(LocalDateTime.now());
-                list.add(instance);
-
-//                v.setEnabled(false);
-
-  //              findViewById(R.id.stopBtn).setEnabled(true);
-                Log.d("PandaBook", "activityData = " + activityData);
-            }
-        });
-
-        stopBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LocalDate today = LocalDate.now();
-                Activity todayEntry = activityData.getActivityMap().get(today);
-                if (todayEntry!= null){
-                    ArrayList<ActivityInstance> list = todayEntry.getActivityInstanceList();
-                    if (list != null) {
-
-                        ActivityInstance instance = findInstance(list, currentFragment.getCategory(), currentFragment.getActivityName());
-                        if(instance != null) {
-                            instance.setActivityCategory(currentFragment.getCategory());
-                            instance.setActivityName(currentFragment.getActivityName());
-                            instance.setEndTime(LocalDateTime.now());
-                            // v.setEnabled(false);
-                            // findViewById(R.id.startBtn).setEnabled(true);
-                        }
-                }
-            }
-                Log.d("PandaBook", "activityData = " + activityData);
-        }});
-
-        pauseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
@@ -160,19 +102,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        activityData = new ActivityMap();
     }
 
-    private ActivityInstance findInstance(ArrayList<ActivityInstance> list, String category, String activityName) {
-        ActivityInstance instance = null;
-        for (ActivityInstance x:list){
-            if ((category.equals(x.getActivityCategory())) && (activityName.equals((x.getActivityName()))) && (x.getStartTime()!= null)){
-                instance = x;
-                break;
-            }
-        }
-        return instance;
+
+    public void updateListView(){
+        ListView listView = (ListView) findViewById(R.id.listView);
+        adapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                activityData.getCurrentListView()
+        );
+        listView.setAdapter(adapter);
     }
 
     private void replaceFragment(Fragment fragment){
@@ -181,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.Framelayout, fragment);
         fragmentTransaction.commit();
-
     }
 
     @Override
